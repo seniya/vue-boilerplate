@@ -1,36 +1,36 @@
 import { instance } from './instance'
 
-function apiArticles (boardId, gdata) {
+function apiArticles (gdata) {
   return instance({
     method: 'GET',
-    url: `/article/list/${boardId}`,
+    url: '/articles',
     params: gdata
   })
 }
-function apiArticleAdd (boardId, fdata) {
+function apiArticleAdd (fdata) {
   return instance({
     method: 'POST',
-    url: `/article/${boardId}`,
+    url: '/articles',
     data: fdata
   })
 }
 function apiArticleRead (id) {
   return instance({
     method: 'GET',
-    url: `/article/read/${id}`
+    url: `/articles/${id}`
   })
 }
 function apiArticleUpdate (id, fdata) {
   return instance({
     method: 'PUT',
-    url: `/article/${id}`,
+    url: `/articles/${id}`,
     data: fdata
   })
 }
 function apiArticleRemove (id) {
   return instance({
     method: 'DELETE',
-    url: `/article/${id}`
+    url: `/articles/${id}`
   })
 }
 export {

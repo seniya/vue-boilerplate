@@ -30,46 +30,29 @@
     </div>
     -->
 
-    <!-- antd 반영-->
-    <a-list
-      class="demo-loadmore-list"
-      :loading="$store.state.post.isLoadingPostItems"
-      item-layout="horizontal"
-      :data-source="$store.state.post.items" >
-      <div
-        v-if="$store.state.post.donePostItems"
-        slot="loadMore"
-        :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }" >
-        <a-spin v-if="$store.state.post.isLoadingPostItems" />
-        <a-button v-else @click="onClickMoreBtn">
-          loading more
-        </a-button>
-      </div>
-      <a-list-item slot="renderItem" slot-scope="item">
-        <a slot="actions" @click="onClickEditBtn(item.id)">edit</a>
-        <a slot="actions" @click="onClickReadBtn(item.id)">more</a>
-        <a-list-item-meta :description="item.content">
-          <span slot="title">
-            <router-link :to="{ name: 'postsRead', params: { postId: item.id }}">
-              {{ item.title }}
-            </router-link>
-          </span>
-          <a-avatar slot="avatar" :size="64" :src="item.image" />
-        </a-list-item-meta>
-        <div>
-          {{item.author}}
-        </div>
-      </a-list-item>
-    </a-list>
+    <!-- antd 반영 -->
+    <viewList
+      :items="$store.state.post.items"
+      :isLoadingPostItems="$store.state.post.isLoadingPostItems"
+      :donePostItems="$store.state.post.donePostItems"
+      :onClickMoreBtn_="onClickMoreBtn"
+      :onClickEditBtn_="onClickEditBtn"
+      :onClickReadBtn_="onClickReadBtn" />
 
   </div>
 </template>
 
 <script>
+import viewList from '@/views/posts/components/viewList'
+
 export default {
   name: 'postsList',
+  components: {
+    viewList
+  },
 
   created () {
+    console.log('viewList : ', viewList)
     this.initialize()
   },
 
@@ -106,5 +89,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -122,7 +122,7 @@ const actions = {
     context.commit('setDonePostItems', false)
     context.commit('setErrorPostItems', null)
     try {
-      const { data } = await apiPosts(payload.id, payload.gdata)
+      const { data } = await apiPosts(payload.gdata)
       context.commit('setIsLoadingPostItems', false)
       context.commit('setDonePostItems', true)
       console.log('POST_ITEMS this.items : ', state.items)
@@ -160,6 +160,9 @@ const actions = {
       context.commit('setIsLoadingPostAdd', false)
       context.commit('setDonePostAdd', true)
       const newItems = [payload.fdata, ...state.items]
+      // console.log('POST_ADD payload.fdata : ', payload.fdata)
+      // console.log('POST_ADD state.items : ', state.items)
+      // console.log('POST_ADD newItems : ', newItems)
       context.commit('setItems', newItems)
       router.push('/posts/list')
       return true

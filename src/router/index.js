@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import home from '../views/home.vue'
 import sign from '@/router/routesSign'
 import posts from '@/router/routesPosts'
+// import articles from '@/router/routesArticles'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,7 @@ const routes = [
   },
   sign,
   posts,
+  // articles,
   {
     path: '*',
     redirect: '/'

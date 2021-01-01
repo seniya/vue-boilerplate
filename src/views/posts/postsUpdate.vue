@@ -46,46 +46,26 @@
     -->
 
     <!-- antd 반영 -->
-    <div>
-      <a-card hoverable style="width: 100%" :loading="$store.state.post.isLoadingPostRead">
-        <a-form
-          :form="form"
-          :label-col="{ span: 5 }"
-          :wrapper-col="{ span: 12 }"
-          @submit="onSubmitForm_">
-          <a-form-item label="Title">
-            <a-input
-              v-decorator="['title', { rules: [{ required: true, message: 'Please input Title' }] }]" />
-          </a-form-item>
-          <a-form-item label="Content">
-            <a-input
-              v-decorator="['content', { rules: [{ required: true, message: 'Please input content' }] }]" />
-          </a-form-item>
-          <a-form-item label="Author">
-            <a-input
-              v-decorator="['author', { rules: [{ required: true, message: 'Please input Author' }] }]" />
-          </a-form-item>
-          <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-            <a-button
-              type="primary"
-              html-type="submit"
-              :loading="$store.state.post.isLoadingPostUpdate">
-              Submit
-            </a-button>
-          </a-form-item>
-        </a-form>
-      </a-card>
-    </div>
+    <viewUpdate
+      :isLoadingPostRead="$store.state.post.isLoadingPostRead"
+      :isLoadingPostUpdate="$store.state.post.isLoadingPostUpdate"
+      :prepareData_="prepareData"
+      :item="this.$store.state.post.item" />
 
   </div>
 </template>
 
 <script>
-const shortId = require('shortid')
-const faker = require('faker')
+import shortId from 'shortid'
+import faker from 'faker'
+import viewUpdate from '@/views/posts/components/viewUpdate'
 
 export default {
   name: 'postsCreate',
+
+  components: {
+    viewUpdate
+  },
 
   data () {
     return {
@@ -93,9 +73,7 @@ export default {
       formErrors: [],
       title: null,
       content: null,
-      author: null,
-
-      form: this.$form.createForm(this, { name: 'post' })
+      author: null
     }
   },
 
@@ -127,15 +105,6 @@ export default {
         console.log('this.formErrors : ', this.formErrors)
       }
     },
-    onSubmitForm_ (e) {
-      e.preventDefault()
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          // console.log('Received values of form: ', values)
-          this.prepareData(values)
-        }
-      })
-    },
     prepareData (values) {
       const fdata = {
         id: shortId.generate(),
@@ -151,26 +120,17 @@ export default {
     async requestReadAPI () {
       const returnCondition = await this.$store.dispatch('post/POST_READ', { id: this.postId })
       console.log('requestAPI returnCondition: ', returnCondition)
-      this.cdSetFieldsValueWithAntd()
       this.cdSetFieldsValueWithoutAntd()
     },
     async requestModifyAPI (fdata) {
       const returnCondition = await this.$store.dispatch('post/POST_UPDATE', { id: this.postId, fdata })
       console.log('requestAPI returnCondition: ', returnCondition)
     },
-    cdSetFieldsValueWithAntd () {
-      this.form.setFieldsValue({
-        title: this.$store.state.post.item.title,
-        content: this.$store.state.post.item.content,
-        author: this.$store.state.post.item.author
-      })
-    },
     cdSetFieldsValueWithoutAntd () {
       this.title = this.$store.state.post.item.title
       this.content = this.$store.state.post.item.content
       this.author = this.$store.state.post.item.author
     }
-
   }
 
 }

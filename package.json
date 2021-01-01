@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "serve": "concurrently --kill-others \"npm run serveBe\" \"npm run serveFe\"",    
     "serveFe": "vue-cli-service serve --mode development",
     "serveBe": "json-server --delay 1000 --watch ./src/api/demo/db.js",
-    "serveBe2": "json-server --delay 1000 --watch ./src/api/demo/db.json",
-    "build": "vue-cli-service build --mode production",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build --mode production"
   },
   "dependencies": {
     "ant-design-vue": "^1.7.2",
@@ -31,6 +30,7 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.1.0",
+    "concurrently": "^5.3.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",

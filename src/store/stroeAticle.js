@@ -6,38 +6,50 @@ import {
   apiArticleRemove
 } from '@/api/apiAticle'
 
-const state = {
-
-}
-
-const getters = {
-
-}
-
-const mutations = {
-
-}
+const state = {}
+const getters = {}
+const mutations = {}
 
 const actions = {
   async ARTICLE_ITEMS (context, payload) {
-    const { data } = await apiArticles(payload.id, payload.gdata)
-    return data
+    try {
+      const { data } = await apiArticles(payload.gdata)
+      return data
+    } catch (error) {
+      return error
+    }
   },
   async ARTICLE_ADD (context, payload) {
-    const { data } = await apiArticleAdd(payload.id, payload.fdata)
-    return data
+    try {
+      const { data } = await apiArticleAdd(payload.fdata)
+      return data
+    } catch (error) {
+      return error
+    }
   },
   async ARTICLE_READ (context, payload) {
-    const { data } = await apiArticleRead(payload.id)
-    return data
+    try {
+      const { data } = await apiArticleRead(payload.id)
+      return data
+    } catch (error) {
+      return error
+    }
   },
   async ARTICLE_UPDATE (context, payload) {
-    const { data } = await apiArticleUpdate(payload.id, payload.fdata)
-    return data
+    try {
+      const { data } = await apiArticleUpdate(payload.id, payload.fdata)
+      return data
+    } catch (error) {
+      return error
+    }
   },
   async ARTICLE_REMOVE (context, payload) {
-    const { data } = await apiArticleRemove(payload.id)
-    return data
+    try {
+      const { data } = await apiArticleRemove(payload.id)
+      return data
+    } catch (error) {
+      return error
+    }
   }
 
 }

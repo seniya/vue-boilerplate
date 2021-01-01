@@ -27,30 +27,15 @@
     -->
 
     <!-- antd 반영 -->
-    <a-card hoverable style="width: 100%" :loading="$store.state.post.isLoadingPostRead">
-      <img
-        slot="cover"
-        alt="example"
-        style="max-width: 400px;"
-        v-if="$store.state.post.donePostRead"
-        :src="$store.state.post.item.image" />
-      <template slot="actions" class="ant-card-actions">
-        <a-icon key="rollback" type="rollback" @click="onClickBackBtn"/>
-        <a-icon key="edit" type="edit" @click="onClickEditBtn($store.state.post.item.id)"/>
-        <a-button
-          icon="delete"
-          @click="onClickDeleteBtn($store.state.post.item.id)"
-          :loading="$store.state.post.isLoadingPostRemove"/>
-      </template>
-      <a-card-meta
-        :title="$store.state.post.item.title"
-        :description="$store.state.post.item.content">
-        <a-avatar
-          slot="avatar"
-          :size="64"
-          :src="$store.state.post.item.animals" />
-      </a-card-meta>
-    </a-card>
+    <viewRead
+      :item="$store.state.post.item"
+      :isLoadingPostRead="$store.state.post.isLoadingPostRead"
+      :donePostRead="$store.state.post.donePostRead"
+      :isLoadingPostRemove="$store.state.post.isLoadingPostRemove"
+      :onClickBackBtn_="onClickBackBtn"
+      :onClickEditBtn_="onClickEditBtn"
+      :onClickDeleteBtn_="onClickDeleteBtn" />
+
     <div>
       <displayTime
         :time="$store.state.post.item.createAt"
@@ -61,12 +46,14 @@
 
 <script>
 import displayTime from '@/components/displayTime'
+import viewRead from '@/views/posts/components/viewRead'
 
 export default {
   name: 'postsRead',
 
   components: {
-    displayTime
+    displayTime,
+    viewRead
   },
 
   data () {
@@ -76,7 +63,7 @@ export default {
   },
 
   created () {
-    console.log('postId : ', this.postId)
+    console.log('viewRead : ', viewRead)
     this.initialize()
   },
 
@@ -102,10 +89,8 @@ export default {
       this.$router.push(`/posts/update/${postId}`)
     },
     async onClickDeleteBtn (postId) {
-      console.log('지우기')
       const returnCondition = await this.$store.dispatch('post/POST_REMOVE', { id: this.postId })
       console.log('requestAPI returnCondition: ', returnCondition)
-      // this.$router.push('/posts/list')
     }
   }
 
