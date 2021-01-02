@@ -61,7 +61,40 @@ export default {
   name: 'mainMenu',
   data () {
     return {
-      current: ['home']
+      current: ['home'],
+      routePath: this.$route.path
+    }
+  },
+
+  watch: {
+    '$route.path': {
+      handler: function (path) {
+        this.cbSetCurrent(path)
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+
+  created () {
+    this.cbSetCurrent(this.$route.path)
+  },
+
+  methods: {
+    cbSetCurrent (path) {
+      if (path === '/') {
+        this.current = ['home']
+      } else if (path === '/sign/in') {
+        this.current = ['sign']
+      } else if (path.indexOf('posts') > -1) {
+        this.current = ['posts']
+      } else if (path.indexOf('articles') > -1) {
+        this.current = ['articles']
+      } else if (path.indexOf('letters') > -1) {
+        this.current = ['letters']
+      } else if (path.indexOf('pages') > -1) {
+        this.current = ['pages']
+      }
     }
   }
 }

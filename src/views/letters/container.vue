@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h2>Articles 컨테이너</h2>
+      <h2>Letters 컨테이너</h2>
     </div>
     <div style="padding: 20px;">
       <router-view></router-view>
