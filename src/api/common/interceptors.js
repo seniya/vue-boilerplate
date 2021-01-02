@@ -6,7 +6,7 @@ export function setInterceptors (instance) {
     function (config) {
       // config.headers.Authorization = store.state.token
       // axios.defaults.headers.common.Authorization = localStorage.getItem('token')
-      config.headers.Authorization = sessionStorage.getItem('token') || ''
+      config.headers.Authorization = sessionStorage.getItem('TOKEN') || ''
       return config
     },
     function (error) {

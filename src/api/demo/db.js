@@ -6,17 +6,22 @@ const faker = require('faker')
 
 module.exports = () => {
   const data = {
-    users: [],
+    sign: {
+      userId: 'test',
+      name: '관리자',
+      lv: 1,
+      token: '369369369369veryveryhardkey369369369369369veryveryhardkey369369369369369veryveryhardkey369'
+    },
     posts: [],
-    articles: []
+    articles: [],
+    letters: []
   }
-  // Create 1000 users
+  // Create 5 items
   for (let i = 0; i < 5; i++) {
-    data.users.push({ id: i, name: `user${i}` })
     data.posts.push(
       {
         id: shortId.generate(),
-        title: faker.lorem.sentence(),
+        title: 'posts_' + faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
         image: faker.image.image(),
         animals: faker.image.animals(),
@@ -27,7 +32,18 @@ module.exports = () => {
     data.articles.push(
       {
         id: shortId.generate(),
-        title: faker.lorem.sentence(),
+        title: 'articles_' + faker.lorem.sentence(),
+        content: faker.lorem.paragraph(),
+        image: faker.image.image(),
+        animals: faker.image.animals(),
+        author: faker.name.findName(),
+        createAt: faker.time.recent()
+      }
+    )
+    data.letters.push(
+      {
+        id: shortId.generate(),
+        title: 'letters_' + faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
         image: faker.image.image(),
         animals: faker.image.animals(),

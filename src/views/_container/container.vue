@@ -12,8 +12,10 @@ export default {
   created () {
     this.requestAPI()
   },
-  requestAPI () {
-    this.prepareAuth = true
+  methods: {
+    requestAPI () {
+      this.prepareAuth = true
+    }
   }
 }
 </script>

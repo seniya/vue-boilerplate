@@ -1,35 +1,20 @@
 import {
-  apiPageAuth,
-  apiSiteInfo,
-  apiSignUp,
   apiSignIn
 } from '@/api/apiAuth'
 
 const state = {
-  token: localStorage.getItem('token'),
   user: {
-    id: '',
+    userId: '',
+    name: '',
     lv: 3,
-    name: ''
+    token: sessionStorage.getItem('TOKEN')
   },
-  siteInfo: {
-    copyright: '',
-    dark: '',
-    title: ''
-  },
-  listType: localStorage.getItem('LIST_TYPE') || 'list'
+  isLoadingSignIn: false,
+  doneSignIn: false,
+  errorSignIn: null
 }
 
 const getters = {
-  getToken: state => {
-    return state.token
-  },
-  getSiteInfo: state => {
-    return state.siteInfo
-  },
-  getListType: state => {
-    return state.listType
-  },
   getUser: state => {
     return state.user
   }
@@ -37,48 +22,45 @@ const getters = {
 
 const mutations = {
   setToken (state, token) {
-    state.token = token
-  },
-  setSiteInfo (state, siteInfo) {
-    state.siteInfo = siteInfo
-  },
-  setListType (state, listType) {
-    state.listType = listType
+    state.user.token = token
   },
   setUser (state, user) {
     state.user = user
+  },
+  setIsLoadingSignIn (state, isLoading) {
+    state.isLoadingSignIn = isLoading
+  },
+  setDoneSignIn (state, isDone) {
+    state.doneSignIn = isDone
+  },
+  setErrorSignIn (state, errorMsg) {
+    state.errorSignIn = errorMsg
   }
 }
 
 const actions = {
-  async PAGE_AUTH (context, payload) {
-    const { data } = await apiPageAuth(payload)
-    return data
-  },
-  async SITE_INFO (context) {
-    const { data } = await apiSiteInfo()
-    context.commit('setSiteInfo', data.body)
-    context.commit('setUser', data.user)
-    return data.body
-  },
-  async SIGN_UP (context, payload) {
-    const { data } = await apiSignUp(payload)
-    return data
-  },
+
   async SIGN_IN (context, payload) {
-    const { data } = await apiSignIn(payload)
-    localStorage.setItem('token', data.body)
-    context.commit('setToken', data.body)
-    return data
+    context.commit('setIsLoadingSignIn', true)
+    context.commit('setDoneSignIn', false)
+    context.commit('setErrorSignIn', null)
+    try {
+      const { data } = await apiSignIn(payload)
+      context.commit('setIsLoadingSignIn', false)
+      context.commit('setDoneSignIn', true)
+      context.commit('setUser', data)
+      console.log('SIGN_IN data : ', data)
+      sessionStorage.setItem('TOKEN', data.token)
+      return true
+    } catch (error) {
+      context.commit('setIsLoadingSignIn', false)
+      context.commit('setErrorSignIn', error.message)
+      return false
+    }
   },
   async SIGN_OUT (context, payload) {
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('TOKEN')
     context.commit('setToken', null)
-  },
-  CHANGE_LIST_TYPE (context, payload) {
-    localStorage.setItem('LIST_TYPE', payload)
-    context.commit('setListType', payload)
-    return payload
   }
 }
 

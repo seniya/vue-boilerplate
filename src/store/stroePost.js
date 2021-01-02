@@ -125,7 +125,6 @@ const actions = {
       const { data } = await apiPosts(payload.gdata)
       context.commit('setIsLoadingPostItems', false)
       context.commit('setDonePostItems', true)
-      console.log('POST_ITEMS this.items : ', state.items)
       const newItems = [...state.items, ...data]
       context.commit('setItems', newItems)
       return true

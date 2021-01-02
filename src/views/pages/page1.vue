@@ -1,12 +1,13 @@
 <template>
   <div>
-    로그아웃 페이지 (미사용)
+    <h3>page 1</h3>
+    <div>일반 페이지</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'signOut'
+  name: 'page1'
 
 }
 </script>

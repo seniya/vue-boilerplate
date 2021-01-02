@@ -1,12 +1,15 @@
 <template>
   <div>
-    로그아웃 페이지 (미사용)
+    <div>
+      <h3>page 2</h3>
+      <div>인증 페이지</div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'signOut'
+  name: 'page3'
 
 }
 </script>

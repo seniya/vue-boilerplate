@@ -26,12 +26,12 @@ export default {
     {
       name: 'articlesRead',
       component: () => import('@/views/articles/articlesRead.vue'),
-      path: '/articles/read/:postId'
+      path: '/articles/read/:articleId'
     },
     {
       name: 'articlesUpdate',
       component: () => import('@/views/articles/articlesUpdate.vue'),
-      path: '/articles/update/:postId'
+      path: '/articles/update/:articleId'
     }
   ]
 }

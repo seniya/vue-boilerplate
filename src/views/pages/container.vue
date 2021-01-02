@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h2>로그인 - 로그아웃 컨테이너</h2>
+      <h2>Pages 컨테이너</h2>
     </div>
     <div style="padding: 20px;">
       <router-view></router-view>
