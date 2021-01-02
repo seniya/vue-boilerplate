@@ -1,6 +1,3 @@
-// import shortId from 'shortid'
-// import faker from 'faker'
-
 const shortId = require('shortid')
 const faker = require('faker')
 
